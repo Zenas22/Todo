@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>To Do List</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="jumbotron">
+      <h1>To Do List</h1>
+      <p>Here is a list of things you are meant to do</p>
+      <hr>
+
+      <ul>
+        <div *ngFor='let todo of todos;let i = index'>
+          <li id="{{i}}" appStrikethrough>{{todo.name}} due on {{todo.completeDate|date|uppercase}}</li>
+          <button (click)='toogleScribble(i)'>Notes</button>
+
+          <app-todo-scribble *ngIf="todo.showScribble" [todo]='todo' (isDone)='deleteTodo($event,i)'></app-todo-scribble>
+        </div>
+      </ul>
+        <p *ngIf='todos.length > 3'> Work harder</p>
+        <hr>
+      </div>
+
+      <div class="row">
+        <div class="jumbotron">
+          <app-todo-form (addTodo)="addNewTodo($event)"></app-todo-form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
